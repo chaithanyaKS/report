@@ -12,7 +12,6 @@ DAYS_OF_WEEK = (
 
 
 class Store(models.Model):
-    store_id = models.IntegerField(unique=True)
     inserted_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -23,7 +22,6 @@ class Status(models.Model):
         ("inactive", "INACTIVE"),
     )
     store = models.ForeignKey(to=Store, on_delete=models.DO_NOTHING)
-    day_of_week = models.CharField(choices=DAYS_OF_WEEK, max_length=10)
     status = models.CharField(max_length=10, choices=STORE_STATUS)
     timestamp_utc = models.DateTimeField()
 
