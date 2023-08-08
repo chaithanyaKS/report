@@ -87,6 +87,7 @@ DATABASES = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+print(DATABASES)
 
 
 # Password validation
@@ -124,6 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+MEDIA_ROOT = "csvs/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -140,8 +142,6 @@ CORS_ALLOWED_ORIGINS = [
 
 
 # CELERY SETTINGS
-
-
 # Celery config
 CELERY_BROKER_URL = env("CELERY_BROKER_URL", "redis://default:redispw@localhost:6379")
 # CELERY_RESULT_BACKEND = "redis://default:redispw@localhost:49153"
@@ -153,6 +153,6 @@ CELERY_TASK_SERIALIZER = env("CELERY_TASK_SERIALIZER", "json")
 CELERY_RESULT_SERIALIZER = env("CELERY_RESULT_SERIALIZER", "json")
 
 CELERY_RESULT_EXTENDED = False if env("CELERY_RESULT_EXTENDED", 0) else True
-CELERY_TIMEZONE = env("CELERY_TIMEZONE", "asia/kolkata")
+# CELERY_TIMEZONE = env("CELERY_TIMEZONE", "asia/kolkata")
 CELERY_TASK_TRACK_STARTED = True if env("CELERY_TASK_TRACK_STARTED", 1) else False
 CELERY_TASK_TIME_LIMIT = env("CELERY_TASK_TIME_LIMIT", 30 * 60)
