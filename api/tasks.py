@@ -13,7 +13,7 @@ BUSINESS_HOURS_FORMAT = "%H:%M:%S"
 
 def get_status_data(
     status_df: pl.DataFrame, from_date: datetime, to_date: datetime, tz: str
-):
+) -> pl.DataFrame:
     return (
         status_df.with_columns(pl.col("timestamp_utc").dt.replace_time_zone(tz))
         .filter(pl.col("timestamp_utc").is_between(to_date, from_date))
@@ -21,7 +21,9 @@ def get_status_data(
     )
 
 
-def get_business_hours(business_hours_df: pl.DataFrame, tz: str, day: int):
+def get_business_hours(
+    business_hours_df: pl.DataFrame, tz: str, day: int
+) -> tuple[datetime, datetime]:
     b = (
         business_hours_df.with_columns(
             pl.col(["start_time_local", "end_time_local"]).dt.replace_time_zone(tz)
@@ -44,7 +46,7 @@ def get_uptime_downtime_last_hr(
     start_time: datetime,
     end_time: datetime,
     current_date: datetime,
-):
+) -> tuple[float, float]:
     last_uptime_hr = timedelta(minutes=0)
     last_downtime_hr = timedelta(minutes=0)
     timestamp: datetime = last_hr_status["timestamp_utc"][0]
@@ -63,7 +65,7 @@ def get_uptime_downtime_last_hr(
 
 def get_uptime_downtime_last_day(
     last_day_status: pl.DataFrame,
-):
+) -> tuple[float, float]:
     last_uptime_day = timedelta(minutes=0)
     last_downtime_day = timedelta(minutes=0)
 
@@ -83,7 +85,7 @@ def get_uptime_downtime_last_day(
 
 def get_uptime_downtime_last_week(
     last_week_status: pl.DataFrame,
-):
+) -> tuple[float, float]:
     last_uptime_day = timedelta(minutes=0)
     last_downtime_day = timedelta(minutes=0)
 
